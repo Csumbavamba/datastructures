@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 // using namespace std;
 
@@ -35,18 +36,22 @@ int main()
 	myOtherIntVector.push_back(10); 
 	myOtherIntVector.push_back(25); 
 	myOtherIntVector.push_back(35); 
-
+	
 	if (myIntVector != myOtherIntVector)
 	{
 		myIntVector.push_back(20);
 	}
+	
 
 	for (unsigned int i = 0; i < myIntVector.size(); i++)
 	{
 		std::cout << myIntVector[i] << std::endl << std::endl;
 	}
-
+	
 	system("pause");
+
+	
+
 
 	return 0;
 }
