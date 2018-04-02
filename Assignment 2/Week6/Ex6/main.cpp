@@ -1,11 +1,3 @@
-/*
-	Create a map - that takes in a Player (class) and a number ID
-	Create random players for testing
-		Name, race, level
-*/
-
-
-
 #include <iostream>
 #include <map>
 #include <algorithm>
@@ -55,7 +47,7 @@ void CreateCharacter()
 	getline(cin, input);
 	testChara->name = input;
 	system("cls");
-	
+
 
 	cout << "Give Character Race> " << endl;
 	getline(cin, input);
@@ -64,7 +56,7 @@ void CreateCharacter()
 
 	cout << "Give Character Level> " << endl;
 	getline(cin, input);
-	testChara->level = std::stoi (input); // Convert string to int
+	testChara->level = std::stoi(input); // Convert string to int
 	system("cls");
 
 	cout << "Give Character ID> " << endl;
@@ -79,8 +71,8 @@ void CreateCharacter()
 int main()
 {
 	bool creationOver = false;
-	std::map <std::string, Character> myMap;
-	
+	std::multimap <std::string, Character> myMap;
+
 	// Create characters
 	while (!creationOver)
 	{

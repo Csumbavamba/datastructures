@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex1", "Ex1\Ex1.vcxproj", "{72EED282-3985-4BBC-A7EF-22DBDF56BE3F}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StringStore", "StringStore\StringStore.vcxproj", "{C2C997E5-D28E-4B5C-BFBC-BF04149BE54A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex5", "Ex5\Ex5.vcxproj", "{B1609E83-570F-4965-9983-09C4DDF7184D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex6", "Ex6\Ex6.vcxproj", "{62DB1169-D576-4178-A627-3371FD0D5E78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{B1609E83-570F-4965-9983-09C4DDF7184D}.Release|x64.Build.0 = Release|x64
 		{B1609E83-570F-4965-9983-09C4DDF7184D}.Release|x86.ActiveCfg = Release|Win32
 		{B1609E83-570F-4965-9983-09C4DDF7184D}.Release|x86.Build.0 = Release|Win32
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Debug|x64.ActiveCfg = Debug|x64
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Debug|x64.Build.0 = Debug|x64
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Debug|x86.ActiveCfg = Debug|Win32
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Debug|x86.Build.0 = Debug|Win32
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Release|x64.ActiveCfg = Release|x64
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Release|x64.Build.0 = Release|x64
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Release|x86.ActiveCfg = Release|Win32
+		{62DB1169-D576-4178-A627-3371FD0D5E78}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
