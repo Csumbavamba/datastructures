@@ -1,6 +1,8 @@
 #include "Tree.h"
 #include "Node.h"
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 
 Tree::Tree()
@@ -11,6 +13,11 @@ Tree::Tree()
 
 Tree::~Tree()
 {
+}
+
+Node * Tree::GetRoot()
+{
+	return root;
 }
 
 void Tree::InsertNode(int nodeValue)
@@ -52,7 +59,7 @@ void Tree::InsertNode(int nodeValue)
 				iterator = iterator->GetLeftNode();
 			}
 		}
-		// If value is higher is higher
+		// If value is higher get the right node or insert
 		else
 		{
 			if (iterator->GetRightNode() == nullptr)
@@ -99,13 +106,24 @@ void Tree::DeleteNode(int value)
 			currentNode = currentNode->GetLeftNode();
 			counter++;
 		}
-		// If there is no right node
-		if (currentNode->GetRightNode() == nullptr)
+		// If there is no left node
+		if (currentNode->GetLeftNode() == nullptr)
 		{
 			// Swap the currentNode with the Node I want to delete
 			int tempValue = nodeToDelete->GetNodeValue();
 			nodeToDelete->SetNodeValue(currentNode->GetNodeValue());
 			currentNode->SetNodeValue(tempValue);
+
+			if (currentNode == currentNode->GetParentNode()->GetLeftNode())
+			{
+				currentNode->GetParentNode()->SetLeftNode(nullptr);
+			}
+
+			if (currentNode->GetRightNode() == nullptr && nodeToDelete->GetRightNode()->GetLeftNode() == nullptr)
+			{
+				nodeToDelete->SetRightNode(nullptr);
+			}
+			
 
 			delete currentNode;
 			return;
@@ -156,7 +174,7 @@ void Tree::DeleteNode(int value)
 
 		}
 
-		// If there is no left node either
+		// If there is no left node or right node either
 		// Check if this node is the right node of the parent Node
 		if (nodeToDelete->GetParentNode()->GetRightNode() == nodeToDelete)
 		{
@@ -211,18 +229,49 @@ Node* Tree::FindNode(int value)
 	
 }
 
-void Tree::DisplayTree()
+void Tree::DisplayPreOrder(Node * currentNode)
 {
-	std::cout << root->GetNodeValue() << std::endl;
-	if (root->GetLeftNode() != nullptr)
-	{
-		std::cout << root->GetLeftNode()->GetNodeValue() << std::endl;
-	}
-	
-	if (root->GetRightNode() != nullptr)
-	{
-		std::cout << root->GetRightNode()->GetNodeValue() << std::endl;
-	}
-	
+	if (currentNode == nullptr)
+		return;
+
+	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+
+	// recurr on left subtree
+	DisplayPreOrder(currentNode->GetLeftNode());
+
+	// recurr on right subtree
+	DisplayPreOrder(currentNode->GetRightNode());
+
 }
+
+void Tree::DisplayInOrder(Node * currentNode)
+{
+	if (currentNode == nullptr)
+		return;
+
+	// recurr on left subtree
+	DisplayPreOrder(currentNode->GetLeftNode());
+
+	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+
+	// recurr on right subtree
+	DisplayPreOrder(currentNode->GetRightNode());
+}
+
+void Tree::DisplayPostOrder(Node * currentNode)
+{
+	if (currentNode == nullptr)
+		return;
+
+	// recurr on left subtree
+	DisplayPreOrder(currentNode->GetLeftNode());
+
+	// recurr on right subtree
+	DisplayPreOrder(currentNode->GetRightNode());
+
+	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+
+}
+
+
 
