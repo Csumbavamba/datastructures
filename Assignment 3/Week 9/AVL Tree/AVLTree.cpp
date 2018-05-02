@@ -290,6 +290,399 @@ void AVLTree::SetUnbalanceType(UnbalanceType unbalanceType)
 	this->unbalanceType = unbalanceType;
 }
 
+
+void AVLTree::BalanceTree()
+{
+	UnbalanceType balancingMethod = DetermineBalancingMethod(GetUnbalancedNode());
+
+	switch (balancingMethod)
+	{
+	case LeftLeft:
+	{
+		BalanceLeftLeft();
+		std::cout << "LeftLeft" << std::endl;
+		return;
+	}
+	case RightRight:
+	{
+		BalanceRightRight();
+		std::cout << "RightRight" << std::endl;
+		return;
+	}
+	case LeftRight:
+	{
+		BalanceLeftRight();
+		std::cout << "LeftRight" << std::endl;
+		return;
+	}
+	case RightLeft:
+	{
+		BalanceRightLeft();
+		std::cout << "RightLeft" << std::endl;
+		return;
+	}
+	default:
+	{
+		// Do nothing
+		std::cout << "Tree is balanced" << std::endl;
+		return;
+	}
+	}
+}
+
+void AVLTree::BalanceLeftLeft()
+{
+	// When the root is unbalanced
+	/*
+				(7)					5											(8)						5
+			5			-->		4		7									5		  9		-->		3		 8
+		4																3		6				2		  6		 9
+																	2
+	*/
+	Node * unbalancedNode = GetUnbalancedNode();
+	Node * middleNode = unbalancedNode->GetLeftNode();
+	Node * bottomNode = middleNode->GetLeftNode();
+	Node * lostNode = nullptr;
+
+	// When the unbalanced Node is the root
+	if (unbalancedNode == root)
+	{
+		// If there is no right node
+		if (unbalancedNode->GetRightNode() == nullptr)
+		{
+			root = middleNode;
+			middleNode->SetRightNode(unbalancedNode);
+			unbalancedNode->SetLeftNode(nullptr);
+
+			return;
+		}
+		// If there is a right node
+		else
+		{
+			lostNode = middleNode->GetRightNode();
+			// left node setRight (unbalancedNode)
+			middleNode->SetRightNode(unbalancedNode); // left node loses right node
+			// left node is the new root
+			root = middleNode;
+			// UnbalancedNode setLeft(lost Node)
+			unbalancedNode->SetLeftNode(lostNode); // UnbalancedNode loses left node
+
+			return;
+
+		}
+	}
+	// When the unbalanced is not the root
+	/*
+				7					7
+			(6)		8	-->		5		 8
+		5					4		6
+	4
+	*/
+	else
+	{
+		// If the unbalanced Node is the parent's left Node
+		if (unbalancedNode->GetParentNode()->GetLeftNode() == unbalancedNode)
+		{
+			unbalancedNode->GetParentNode()->SetLeftNode(middleNode);
+		}
+		// If it's the parent's right node
+		else
+		{
+			unbalancedNode->GetParentNode()->SetRightNode(middleNode);
+		}
+		// Check if there is a node to be lost
+		if (unbalancedNode->GetLeftNode()->GetRightNode() != nullptr)
+		{
+			lostNode = middleNode->GetRightNode();
+		}
+		middleNode->SetRightNode(unbalancedNode);
+		unbalancedNode->SetLeftNode(lostNode);
+
+		return;
+	}
+
+}
+
+void AVLTree::BalanceRightRight()
+{
+	// When the root is unbalanced
+	/*
+	(4)							5											(3)							5
+		5			-->		4		7									2		 5		-->			3		6
+			7																   4	6			2	   4		8		 
+																						8							
+	*/
+
+	Node * unbalancedNode = GetUnbalancedNode();
+	Node * middleNode = unbalancedNode->GetRightNode();
+	Node * bottomNode = middleNode->GetRightNode();
+	Node * lostNode = nullptr;
+
+	if (unbalancedNode == root)
+	{
+		// If there is no left node
+		if (unbalancedNode->GetLeftNode() == nullptr)
+		{
+			root = middleNode;
+			root->SetLeftNode(unbalancedNode);
+			unbalancedNode->SetRightNode(nullptr);
+
+			return;
+		}
+		// If there is a left node
+		else
+		{
+			lostNode = middleNode->GetLeftNode();
+			// right node setRight (unbalancedNode)
+			middleNode->SetLeftNode(unbalancedNode); // right node loses left node
+			// right node is the new root
+			root = middleNode;
+			// UnbalancedNode setRight(lost Node)
+			unbalancedNode->SetRightNode(lostNode); // UnbalancedNode loses right node
+
+			return;
+
+		}
+	}
+	// When the unbalanced is not the root
+	/*
+		  3						  3
+		2	(5)			-->		2		6
+	  			6					 5		7	
+					7
+	*/
+	else
+	{
+		// If the unbalanced Node is the parent's left Node
+		if (unbalancedNode->GetParentNode()->GetLeftNode() == unbalancedNode)
+		{
+			unbalancedNode->GetParentNode()->SetLeftNode(middleNode);
+		}
+		// If it's the parent's right node
+		else
+		{
+			unbalancedNode->GetParentNode()->SetRightNode(middleNode);
+		}
+		// Check if there is a node to be lost
+		if (middleNode->GetRightNode() != nullptr)
+		{
+			lostNode = middleNode->GetLeftNode();
+		}
+
+		middleNode->SetLeftNode(unbalancedNode);
+		unbalancedNode->SetRightNode(lostNode);
+
+		return;
+	}
+	
+
+}
+
+void AVLTree::BalanceLeftRight()
+{
+	Node * unbalancedNode = GetUnbalancedNode();
+	Node * middleNode = unbalancedNode->GetLeftNode();
+	Node * bottomNode = middleNode->GetRightNode();
+	Node * lostNode = nullptr;
+
+	
+	// If the root is unbalanced
+	if (unbalancedNode == root)
+	{
+		// If there is no Right Node
+		/*
+					(7)					7					6
+				5			-->		6			-->		5		7
+					6			5
+		*/
+		if (unbalancedNode->GetRightNode() == nullptr)
+		{
+			unbalancedNode->SetLeftNode(bottomNode);
+			bottomNode->SetLeftNode(middleNode);
+			middleNode->SetRightNode(nullptr);
+
+			BalanceLeftLeft();
+
+			return;
+		}
+		// If there is a right node
+		else 
+		{
+			// Step One
+			unbalancedNode->SetLeftNode(bottomNode);
+			bottomNode->SetLeftNode(middleNode);
+
+			// If there is a right node and BottomNode has a Left Node
+			/*
+
+						(9)						9						7
+					5		10	-->			7		10		-->		5		9
+				4	   7				5						4	   6		10
+					|6|				4	 |6|
+			*/
+			if (bottomNode->GetLeftNode() != nullptr)
+			{
+
+				lostNode = bottomNode->GetLeftNode();
+				middleNode->SetRightNode(lostNode);
+			}
+			// If there is a right node and BottomNode has no Left Node
+			/*
+
+						(9)						(9)						7
+					5		10	-->			7		10		-->		5		(9)
+				4	   7				5	  |8|				4		 |8|	10
+						|8|			4	 
+			*/
+			else
+			{
+				lostNode = bottomNode->GetRightNode();
+				unbalancedNode->SetLeftNode(lostNode);
+			}
+
+			// Step Two
+			root = bottomNode;
+			bottomNode->SetRightNode(unbalancedNode);
+
+			return;
+			
+		}
+	}
+	// If we are not dealing with the root
+	else
+	{
+		// If there is a node to be lost
+		if (bottomNode->GetRightNode() != nullptr)
+		{
+			lostNode = bottomNode->GetRightNode();
+		}
+		else if (bottomNode->GetLeftNode() != nullptr)
+		{
+			lostNode = bottomNode->GetLeftNode();
+		}
+
+		// Step 1
+		unbalancedNode->SetLeftNode(bottomNode);
+		bottomNode->SetLeftNode(middleNode);
+		middleNode->SetRightNode(nullptr);
+
+		
+		// If the unbalanced node is a LeftNode
+		if (unbalancedNode->GetParentNode()->GetLeftNode() == unbalancedNode)
+		{
+			unbalancedNode->GetParentNode()->SetLeftNode(bottomNode);
+		}
+		// If the unbalanced node is a RightNode
+		else
+		{
+			unbalancedNode->GetParentNode()->SetRightNode(bottomNode);
+		}
+
+		// Step 2
+		bottomNode->SetRightNode(unbalancedNode);
+		unbalancedNode->SetLeftNode(lostNode);
+
+		return;
+
+	}
+	
+
+}
+
+void AVLTree::BalanceRightLeft()
+{
+	Node * unbalancedNode = GetUnbalancedNode();
+	Node * middleNode = unbalancedNode->GetRightNode();
+	Node * bottomNode = middleNode->GetLeftNode();
+	Node * lostNode = nullptr;
+
+	// If the root is unbalanced
+	if (unbalancedNode == root)
+	{
+		// If there is no left node
+		if (unbalancedNode->GetLeftNode() == nullptr)
+		{
+			unbalancedNode->SetRightNode(bottomNode);
+			bottomNode->SetRightNode(middleNode);
+			middleNode->SetLeftNode(nullptr);
+
+			BalanceRightRight();
+
+			return;
+		}
+		// If there is left node
+		else
+		{
+			// Step One
+			unbalancedNode->SetRightNode(bottomNode);
+			bottomNode->SetRightNode(middleNode);
+
+			// If there is a left node and BottomNode has a Right Node
+			if (bottomNode->GetRightNode() != nullptr)
+			{
+
+				lostNode = bottomNode->GetRightNode();
+				middleNode->SetLeftNode(lostNode);
+			}
+			// If there is a left node and BottomNode has no Right Node
+			else
+			{
+				lostNode = bottomNode->GetLeftNode();
+				unbalancedNode->SetRightNode(lostNode);
+			}
+
+			// Step Two
+			root = bottomNode;
+			bottomNode->SetLeftNode(unbalancedNode);
+
+			return;
+		}
+	}
+	// If we are not dealing with the root
+	else
+	{
+		
+		// If there is a node to be lost
+		if (bottomNode->GetRightNode() != nullptr)
+		{
+			lostNode = bottomNode->GetRightNode();
+		}
+		else if (bottomNode->GetLeftNode() != nullptr)
+		{
+			lostNode = bottomNode->GetLeftNode();
+		}
+
+		// Step 1
+		unbalancedNode->SetRightNode(bottomNode);
+		bottomNode->SetRightNode(middleNode);
+		middleNode->SetLeftNode(nullptr);
+
+		
+
+		// If the unbalanced node is a LeftNode
+		if (unbalancedNode->GetParentNode()->GetLeftNode() == unbalancedNode)
+		{
+			unbalancedNode->GetParentNode()->SetLeftNode(bottomNode);
+		}
+		// If the unbalanced node is a RightNode
+		else
+		{
+			unbalancedNode->GetParentNode()->SetRightNode(bottomNode);
+		}
+
+		// Step 2
+		bottomNode->SetLeftNode(unbalancedNode);
+		unbalancedNode->SetRightNode(lostNode);
+
+		return;
+
+	}
+
+
+}
+
+
+
 UnbalanceType AVLTree::DetermineBalancingMethod(Node * unbalancedNode)
 {
 	// First step --> Determine if left or right has higher height
@@ -353,98 +746,6 @@ int AVLTree::GetRightHeight(Node * inspectedNode)
 	}
 }
 
-void AVLTree::BalanceTree()
-{
-	UnbalanceType balancingMethod = DetermineBalancingMethod(GetUnbalancedNode());
-
-	switch (balancingMethod)
-	{
-	case LeftLeft:
-	{
-		BalanceLeftLeft();
-		std::cout << "LeftLeft" << std::endl;
-		return;
-	}
-	case RightRight:
-	{
-		return;
-	}
-	case LeftRight:
-	{
-		return;
-	}
-	case RightLeft:
-	{
-		return;
-	}
-	default:
-	{
-		// Do nothing
-		std::cout << "Tree is balanced" << std::endl;
-		return;
-	}
-	}
-}
-
-void AVLTree::BalanceLeftLeft()
-{
-	Node * unbalancedNode = GetUnbalancedNode();
-
-	// When the root is unbalanced
-	/*
-				7					5											(8)					
-			5			-->		4		7									5		  7		-->			  
-		4																3		6					
-																	2
-	*/
-	// When the unbalanced Node is the root
-	if (unbalancedNode == root)
-	{
-		// If there is no right node
-		if (unbalancedNode->GetRightNode() == nullptr)
-		{
-			root = unbalancedNode->GetLeftNode();
-			root->SetRightNode(unbalancedNode);
-			unbalancedNode->SetLeftNode(nullptr);
-
-			return;
-		}
-		// If there is a right node
-		else
-		{
-			Node * lostNode = unbalancedNode->GetLeftNode()->GetRightNode();
-			// left node setRight (unbalancedNode)
-			unbalancedNode->GetLeftNode()->SetRightNode(unbalancedNode); // left node loses right node
-			// left node is the new root
-			root = unbalancedNode->GetLeftNode();
-			// UnbalancedNode setLeft(lost Node)
-			unbalancedNode->SetLeftNode(lostNode); // UnbalancedNode loses left node
-
-			return;
-			
-		}
-	}
-	// When the unbalanced is not the root
-	/*
-					7					7	
-				(6)		8	-->		5		 8	
-			5					4		6			
-		4														
-	*/
-	else
-	{
-			// unbalanaced's parent --> SetLeft(left)
-			unbalancedNode->GetParentNode()->SetLeftNode(unbalancedNode->GetLeftNode());
-			// left SetRight(unbalanced)
-			unbalancedNode->GetLeftNode()->SetRightNode(unbalancedNode);
-			// unbalanced SetLeft(nullptr)
-			unbalancedNode->SetLeftNode(nullptr);
-
-			return;
-	}
-
-}
-
 Node * AVLTree::GetUnbalancedNode()
 {
 	Node * currentNode = root;
@@ -470,6 +771,7 @@ Node * AVLTree::GetUnbalancedNode()
 		}
 		// Return the Node with the smallest height and smallest balance factor
 		unbalancedNodes.clear();
+
 		return unbalancedNode;
 	}
 	else

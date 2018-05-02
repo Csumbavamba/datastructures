@@ -7,11 +7,15 @@ int main()
 {
 	AVLTree tree;
 
-	tree.InsertNode(7);
 	tree.InsertNode(8);
+	tree.InsertNode(7);
+	tree.InsertNode(10);
+	tree.InsertNode(9);
 	tree.InsertNode(6);
-	tree.InsertNode(5);
-	tree.InsertNode(4);
+	tree.InsertNode(15);
+	tree.InsertNode(14);
+	tree.InsertNode(17);
+	tree.InsertNode(13);
 
 	tree.BalanceTree();
 

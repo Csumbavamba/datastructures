@@ -39,12 +39,18 @@ public:
 
 	UnbalanceType GetUnbalanceType() const;
 	void SetUnbalanceType(UnbalanceType unbalanceType);
+
+	void BalanceTree();
+	void BalanceLeftLeft();
+	void BalanceRightRight();
+	void BalanceLeftRight();
+	void BalanceRightLeft();
+
 	UnbalanceType DetermineBalancingMethod(Node * unbalancedNode);
 	int GetLeftHeight(Node * inspectedNode);
 	int GetRightHeight(Node * inspectedNode);
 
-	void BalanceTree();
-	void BalanceLeftLeft();
+	
 
 	Node * GetUnbalancedNode();
 	void FindUnbalancedNodes(Node  * currentNode);
