@@ -51,6 +51,7 @@ void AVLTree::InsertNode(int nodeValue)
 			{
 				// set new Node to be the left Node
 				iterator->SetLeftNode(nodeToInsert);
+				BalanceTree();
 				return;
 			}
 			else
@@ -71,6 +72,7 @@ void AVLTree::InsertNode(int nodeValue)
 			{
 				// insert new node as the right node
 				iterator->SetRightNode(nodeToInsert);
+				BalanceTree();
 				return;
 			}
 			else
@@ -131,6 +133,7 @@ void AVLTree::DeleteNode(int nodeValue)
 
 
 			delete currentNode;
+			BalanceTree();
 			return;
 		}
 		// if there is a right node
@@ -146,6 +149,7 @@ void AVLTree::DeleteNode(int nodeValue)
 			nodeToDelete->GetParentNode()->SetLeftNode(currentNode);
 
 			delete nodeToDelete;
+			BalanceTree();
 			return;
 		}
 
@@ -169,12 +173,14 @@ void AVLTree::DeleteNode(int nodeValue)
 				// Disconnect the node that I want to delete
 				nodeToDelete->GetParentNode()->SetRightNode(currentNode);
 				delete nodeToDelete;
+				BalanceTree();
 				return;
 			}
 
 			// Otherwise set left node
 			nodeToDelete->GetParentNode()->SetLeftNode(currentNode);
 			delete nodeToDelete;
+			BalanceTree();
 			return;
 
 		}
@@ -185,12 +191,14 @@ void AVLTree::DeleteNode(int nodeValue)
 		{
 			nodeToDelete->GetParentNode()->SetRightNode(nullptr);
 			delete nodeToDelete;
+			BalanceTree();
 			return;
 		}
 
 		// Otherwise set left node
 		nodeToDelete->GetParentNode()->SetLeftNode(nullptr);
 		delete nodeToDelete;
+		BalanceTree();
 		return;
 	}
 }

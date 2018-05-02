@@ -17,8 +17,6 @@ int main()
 	tree.InsertNode(17);
 	tree.InsertNode(13);
 
-	tree.BalanceTree();
-
 	system("pause");
 
 	std::cout << std::endl;
