@@ -234,7 +234,7 @@ void Tree::DisplayPreOrder(Node * currentNode)
 	if (currentNode == nullptr)
 		return;
 
-	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+	std::cout << currentNode->GetNodeValue() << " ";
 
 	// recurr on left subtree
 	DisplayPreOrder(currentNode->GetLeftNode());
@@ -250,12 +250,12 @@ void Tree::DisplayInOrder(Node * currentNode)
 		return;
 
 	// recurr on left subtree
-	DisplayPreOrder(currentNode->GetLeftNode());
+	DisplayInOrder(currentNode->GetLeftNode());
 
-	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+	std::cout << currentNode->GetNodeValue() << " ";
 
 	// recurr on right subtree
-	DisplayPreOrder(currentNode->GetRightNode());
+	DisplayInOrder(currentNode->GetRightNode());
 }
 
 void Tree::DisplayPostOrder(Node * currentNode)
@@ -264,12 +264,12 @@ void Tree::DisplayPostOrder(Node * currentNode)
 		return;
 
 	// recurr on left subtree
-	DisplayPreOrder(currentNode->GetLeftNode());
+	DisplayPostOrder(currentNode->GetLeftNode());
 
 	// recurr on right subtree
-	DisplayPreOrder(currentNode->GetRightNode());
+	DisplayPostOrder(currentNode->GetRightNode());
 
-	std::cout << currentNode->GetNodeValue() << " " << std::endl;
+	std::cout << currentNode->GetNodeValue() << " ";
 
 }
 

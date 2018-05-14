@@ -758,7 +758,7 @@ Node * AVLTree::GetUnbalancedNode()
 {
 	Node * currentNode = root;
 
-	Node * unbalancedNode = nullptr;
+	Node * currentUnbalancedNode = nullptr;
 	
 	
 	// Walk through the tree and calculate balance factors
@@ -772,15 +772,15 @@ Node * AVLTree::GetUnbalancedNode()
 		{
 			// Get the one with the smallest height
 			if (i == 0)
-				unbalancedNode = unbalancedNodes[i];
+				currentUnbalancedNode = unbalancedNodes[i];
 
-			if (unbalancedNodes[i]->Height < unbalancedNode->Height)
-				unbalancedNode = unbalancedNodes[i];
+			if (unbalancedNodes[i]->Height < currentUnbalancedNode->Height)
+				currentUnbalancedNode = unbalancedNodes[i];
 		}
 		// Return the Node with the smallest height and smallest balance factor
 		unbalancedNodes.clear();
 
-		return unbalancedNode;
+		return currentUnbalancedNode;
 	}
 	else
 	{
