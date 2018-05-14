@@ -11,9 +11,13 @@ public:
 	GraphList();
 	~GraphList();
 
-	void AddNodeToGraph(int nodeValue);
-	void SetNodeConnections(Node * mainNode);
-	int GetNodePositionToConnect() const;
+	void AddNodeToGraph(int nodeValue); 
+	void AddTestNode(Node * node); // Just for testing
+	void SetupGraph();
+
+	void ConnectNodes(Node * node1, Node * node2); // Experimentall
+
+	void ConnectNodesOld(Node * mainNode);
 
 	void WalkThroughDepth();
 	void WalkTrhoughBreadth();

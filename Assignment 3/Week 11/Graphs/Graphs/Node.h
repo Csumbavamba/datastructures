@@ -1,10 +1,12 @@
 #pragma once
+
+class NeighbourList;
+
 class Node
 {
 private:
 	int nodeValue;
-	Node * elderNode;
-	Node * neighbourNode;
+	Node * nextNeighbour;
 	bool isDiscovered;
 public:
 	Node(int nodeValue);
@@ -12,12 +14,9 @@ public:
 
 	int GetNodeValue() const;
 	void SetNodeValue(int nodeValue);
-	
-	Node * GetElderNode() const;
-	void SetElderNode(Node * elderNode);
 
-	Node * GetNeighbourNode() const;
-	void SetNeighbourNode(Node * neighbourNode);
+	Node * GetNeighbour() const;
+	void SetNeighbour(Node * nextNeighbour);
 
 	bool GetIsDiscovered() const;
 	void SetIsDiscovered(bool isDiscovered);

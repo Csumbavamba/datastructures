@@ -5,8 +5,7 @@
 Node::Node(int nodeValue)
 {
 	this->nodeValue = nodeValue;
-	elderNode = nullptr;
-	neighbourNode = nullptr;
+	nextNeighbour = nullptr;
 	isDiscovered = false;
 }
 
@@ -25,25 +24,18 @@ void Node::SetNodeValue(int nodeValue)
 	this->nodeValue = nodeValue;
 }
 
-Node * Node::GetElderNode() const
+
+Node * Node::GetNeighbour() const
 {
-	return elderNode;
+	return nextNeighbour;
 }
 
-void Node::SetElderNode(Node * elderNode)
+void Node::SetNeighbour(Node * nextNeighbour)
 {
-	this->elderNode = elderNode;
+	this->nextNeighbour = nextNeighbour;
 }
 
-Node * Node::GetNeighbourNode() const
-{
-	return neighbourNode;
-}
 
-void Node::SetNeighbourNode(Node * neighbourNode)
-{
-	this->neighbourNode = neighbourNode;
-}
 
 bool Node::GetIsDiscovered() const
 {
