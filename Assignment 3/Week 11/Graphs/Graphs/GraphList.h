@@ -11,13 +11,9 @@ public:
 	GraphList();
 	~GraphList();
 
-	void AddNodeToGraph(int nodeValue); 
-	void AddTestNode(Node * node); // Just for testing
-	void SetupGraph();
-
-	void ConnectNodes(Node * node1, Node * node2); // Experimentall
-
-	void ConnectNodesOld(Node * mainNode);
+	void AddNodeToGraph(int nodeValue);
+	void ConnectNodes(int node1Value, int node2Value);
+	void DisconnectNodes(int node1Value, int node2Value);
 
 	void WalkThroughDepth();
 	void WalkTrhoughBreadth();

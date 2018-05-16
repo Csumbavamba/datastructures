@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class NeighbourList;
 
@@ -6,7 +7,7 @@ class Node
 {
 private:
 	int nodeValue;
-	Node * nextNeighbour;
+	std::vector<Node*> neighbours;
 	bool isDiscovered;
 public:
 	Node(int nodeValue);
@@ -15,8 +16,9 @@ public:
 	int GetNodeValue() const;
 	void SetNodeValue(int nodeValue);
 
-	Node * GetNeighbour() const;
-	void SetNeighbour(Node * nextNeighbour);
+	void AddNeighbour(Node * node);
+	void RemoveNeighbour(Node * node);
+	Node* GetNeighbour(int position) const;
 
 	bool GetIsDiscovered() const;
 	void SetIsDiscovered(bool isDiscovered);

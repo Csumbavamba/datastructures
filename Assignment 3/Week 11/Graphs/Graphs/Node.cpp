@@ -1,17 +1,23 @@
 #include "Node.h"
+#include <vector>
+#include <algorithm>
 
 
 
 Node::Node(int nodeValue)
 {
 	this->nodeValue = nodeValue;
-	nextNeighbour = nullptr;
 	isDiscovered = false;
 }
 
 
 Node::~Node()
 {
+	for (int i = 0; i < neighbours.size(); i++)
+	{
+		neighbours.pop_back();
+	}
+	
 }
 
 int Node::GetNodeValue() const
@@ -25,15 +31,34 @@ void Node::SetNodeValue(int nodeValue)
 }
 
 
-Node * Node::GetNeighbour() const
+void Node::AddNeighbour(Node * node)
 {
-	return nextNeighbour;
+	neighbours.push_back(node);
+	node->AddNeighbour(this);
 }
 
-void Node::SetNeighbour(Node * nextNeighbour)
+void Node::RemoveNeighbour(Node * node)
 {
-	this->nextNeighbour = nextNeighbour;
+	std::vector<Node*>::iterator iterator;
+	iterator = neighbours.begin();
+
+	// Increment the iterator as long as it reaches the value (if it's not in do nothing)
+	for (int i = 0; i < neighbours.size(); i++)
+	{
+		if (node == neighbours.at(i));
+		{
+			// Move neighbour to back
+			neighbours.erase(iterator);
+		}
+		iterator++;
+	}
 }
+
+Node * Node::GetNeighbour(int position) const
+{
+	return neighbours.at(position);
+}
+
 
 
 
