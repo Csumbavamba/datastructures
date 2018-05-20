@@ -33,8 +33,10 @@ void Node::SetNodeValue(int nodeValue)
 
 void Node::AddNeighbour(Node * node)
 {
+	// If the node is a nullptr, then get out of here
+	if (node == nullptr) { return; }
+
 	neighbours.push_back(node);
-	node->AddNeighbour(this);
 }
 
 void Node::RemoveNeighbour(Node * node)
@@ -47,8 +49,9 @@ void Node::RemoveNeighbour(Node * node)
 	{
 		if (node == neighbours.at(i));
 		{
-			// Move neighbour to back
+			// Erase the right node from the vector
 			neighbours.erase(iterator);
+			return;
 		}
 		iterator++;
 	}
