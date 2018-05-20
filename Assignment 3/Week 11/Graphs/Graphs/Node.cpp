@@ -42,24 +42,30 @@ void Node::AddNeighbour(Node * node)
 void Node::RemoveNeighbour(Node * node)
 {
 	std::vector<Node*>::iterator iterator;
-	iterator = neighbours.begin();
 
 	// Increment the iterator as long as it reaches the value (if it's not in do nothing)
-	for (int i = 0; i < neighbours.size(); i++)
+	for (iterator = neighbours.begin(); iterator != neighbours.end(); iterator++)
 	{
-		if (node == neighbours.at(i));
+		if (node->GetNodeValue() == (*iterator)->GetNodeValue())
 		{
 			// Erase the right node from the vector
 			neighbours.erase(iterator);
+			// neighbours.pop_back();
 			return;
 		}
-		iterator++;
 	}
 }
 
 Node * Node::GetNeighbour(int position) const
 {
-	return neighbours.at(position);
+	if (position < neighbours.size())
+		return neighbours.at(position);
+	return nullptr;
+}
+
+int Node::GetNumberOfNeighbours() const
+{
+	return neighbours.size();
 }
 
 

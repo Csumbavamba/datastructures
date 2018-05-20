@@ -19,6 +19,7 @@ public:
 	void AddNeighbour(Node * node);
 	void RemoveNeighbour(Node * node);
 	Node* GetNeighbour(int position) const; // Get the neighbour at given position
+	int GetNumberOfNeighbours() const;
 
 	bool GetIsDiscovered() const;
 	void SetIsDiscovered(bool isDiscovered);
